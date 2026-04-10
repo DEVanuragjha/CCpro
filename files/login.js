@@ -2,7 +2,7 @@
 //  pages/login.js — Auth page logic
 // ============================================================
 
-import { signIn, signUp, getCurrentUser } from "../firebase.js";
+import { signIn, signUp, getCurrentUser } from "./firebase.js";
 
 // ── Load Supabase CDN before anything else ─────────────────
 const script = document.createElement("script");

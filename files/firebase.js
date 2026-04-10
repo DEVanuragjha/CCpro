@@ -15,8 +15,8 @@
  * 5. Copy "anon public" key into SUPABASE_ANON_KEY below
  */
 
-export const SUPABASE_URL  = "https://YOUR_PROJECT_ID.supabase.co";
-export const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_PUBLIC_KEY";
+export const SUPABASE_URL  = "https://ggfxcimghdczohhuozhs.supabase.co";
+export const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdnZnhjaW1naGRjemh2aHVvemhzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3NjMxMTUsImV4cCI6MjA5MTMzOTExNX0.NbJZ37srIiiFEFff_NYp7SJKaX9g2tg1-s18yEhknVo";
 
 // Storage bucket name — create this in Supabase Storage dashboard
 export const STORAGE_BUCKET = "user-files";
