@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NimbusVault – Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body class="dashboard-page">
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon small">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 26C5.2 26 3 23.8 3 21C3 18.4 4.9 16.2 7.4 16C7.1 15.4 7 14.7 7 14C7 10.7 9.7 8 13 8C14.1 8 15.1 8.3 16 8.8C17.2 6.6 19.5 5 22.2 5C26.4 5 29.8 8.4 29.8 12.6C29.8 12.9 29.8 13.2 29.7 13.5C31.8 14.4 33.2 16.5 33.2 18.8C33.2 22 30.6 24.6 27.4 24.6" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <path d="M20 18V34M20 34L15 29M20 34L25 29" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <span>NimbusVault</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active" data-section="dashboard" onclick="switchSection('dashboard', this)">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Dashboard
+      </a>
+      <a href="#" class="nav-item" data-section="myfiles" onclick="switchSection('myfiles', this)">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+        My Files
+      </a>
+      <a href="#" class="nav-item" data-section="shared" onclick="switchSection('shared', this)">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        Shared Files
+      </a>
+      <a href="#" class="nav-item" data-section="trash" onclick="switchSection('trash', this)">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+        Trash
+      </a>
+    </nav>
+
+    <!-- Storage usage bar -->
+    <div class="storage-usage">
+      <div class="storage-label">
+        <span>Storage</span>
+        <span id="storageUsed">0 MB / ∞</span>
+      </div>
+      <div class="storage-bar">
+        <div class="storage-fill" id="storageFill" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <button class="sidebar-upload-btn" id="sidebarUploadBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Upload File
+    </button>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-wrapper">
+    <!-- Navbar -->
+    <header class="navbar">
+      <button class="hamburger" id="hamburger" onclick="toggleSidebar()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="search-bar">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="searchInput" placeholder="Search files…" oninput="searchFiles(this.value)"/>
+      </div>
+      <div class="navbar-right">
+        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+          <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+        <div class="profile-menu" id="profileMenu">
+          <div class="avatar" id="userAvatar" onclick="toggleProfileDropdown()">J</div>
+          <div class="profile-dropdown" id="profileDropdown">
+            <div class="profile-info">
+              <div class="profile-name" id="profileName">User</div>
+              <div class="profile-email" id="profileEmail">user@example.com</div>
+            </div>
+            <hr/>
+            <button onclick="logout()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+              Sign Out
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Content Area -->
+    <main class="content" id="mainContent">
+      <!-- Toast -->
+      <div class="toast" id="dashToast"></div>
+
+      <!-- Dashboard Section -->
+      <section class="section active" id="section-dashboard">
+        <div class="section-header">
+          <div>
+            <h1 class="section-title">Dashboard</h1>
+            <p class="section-sub">Welcome back, <span id="welcomeName">User</span></p>
+          </div>
+          <button class="btn-primary upload-trigger" id="uploadTrigger">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Upload
+          </button>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon files-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+            </div>
+            <div>
+              <div class="stat-value" id="statTotalFiles">0</div>
+              <div class="stat-label">Total Files</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon storage-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+            </div>
+            <div>
+              <div class="stat-value" id="statStorage">0 MB</div>
+              <div class="stat-label">Used Storage</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon shared-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            </div>
+            <div>
+              <div class="stat-value" id="statShared">0</div>
+              <div class="stat-label">Shared Files</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon trash-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>
+            </div>
+            <div>
+              <div class="stat-value" id="statTrashed">0</div>
+              <div class="stat-label">In Trash</div>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="subsection-title">Recent Files</h2>
+        <div class="file-grid" id="recentFiles">
+          <div class="empty-state" id="recentEmpty">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+            <p>No files yet. Upload your first file!</p>
+            <button class="btn-primary" onclick="document.getElementById('uploadModal').classList.add('open')">Upload Now</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- My Files Section -->
+      <section class="section" id="section-myfiles">
+        <div class="section-header">
+          <div>
+            <h1 class="section-title">My Files</h1>
+            <p class="section-sub">All your uploaded files</p>
+          </div>
+          <div class="view-controls">
+            <button class="view-btn active" id="gridViewBtn" onclick="setView('grid')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            </button>
+            <button class="view-btn" id="listViewBtn" onclick="setView('list')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="file-grid" id="myFilesGrid">
+          <div class="empty-state" id="myFilesEmpty">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+            <p>No files found</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Shared Files Section -->
+      <section class="section" id="section-shared">
+        <div class="section-header">
+          <h1 class="section-title">Shared Files</h1>
+        </div>
+        <div class="file-grid" id="sharedFilesGrid">
+          <div class="empty-state">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            <p>No shared files yet</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Trash Section -->
+      <section class="section" id="section-trash">
+        <div class="section-header">
+          <div>
+            <h1 class="section-title">Trash</h1>
+            <p class="section-sub">Deleted files are stored here</p>
+          </div>
+          <button class="btn-danger" id="emptyTrashBtn" onclick="emptyTrash()" style="display:none">
+            Empty Trash
+          </button>
+        </div>
+        <div class="file-grid" id="trashFilesGrid">
+          <div class="empty-state" id="trashEmpty">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg>
+            <p>Trash is empty</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Upload Modal -->
+  <div class="modal-overlay" id="uploadModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Upload Files</h3>
+        <button class="modal-close" onclick="closeUploadModal()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="drop-zone" id="dropZone">
+        <div class="drop-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </div>
+        <p class="drop-title">Drag & drop files here</p>
+        <p class="drop-sub">or click to browse</p>
+        <input type="file" id="fileInput" multiple class="file-input" />
+      </div>
+      <div class="upload-queue" id="uploadQueue"></div>
+    </div>
+  </div>
+
+  <!-- Share Modal -->
+  <div class="modal-overlay" id="shareModal">
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <h3>Share File</h3>
+        <button class="modal-close" onclick="document.getElementById('shareModal').classList.remove('open')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="share-content">
+        <div class="share-file-info">
+          <div class="share-file-icon" id="shareFileIcon"></div>
+          <div>
+            <div class="share-file-name" id="shareFileName"></div>
+            <div class="share-file-size" id="shareFileSize"></div>
+          </div>
+        </div>
+        <div class="toggle-row">
+          <span>Public access</span>
+          <label class="toggle">
+            <input type="checkbox" id="publicToggle" onchange="togglePublicAccess(this.checked)" />
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <div class="link-box" id="linkBox">
+          <input type="text" id="shareLink" readonly />
+          <button class="copy-btn" id="copyBtn" onclick="copyShareLink()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copy
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="firebase.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

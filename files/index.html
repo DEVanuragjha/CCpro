@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NimbusVault – Cloud Storage</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body class="auth-page">
+
+  <!-- Animated background -->
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <div class="auth-container">
+    <!-- Logo -->
+    <div class="auth-logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 26C5.2 26 3 23.8 3 21C3 18.4 4.9 16.2 7.4 16C7.1 15.4 7 14.7 7 14C7 10.7 9.7 8 13 8C14.1 8 15.1 8.3 16 8.8C17.2 6.6 19.5 5 22.2 5C26.4 5 29.8 8.4 29.8 12.6C29.8 12.9 29.8 13.2 29.7 13.5C31.8 14.4 33.2 16.5 33.2 18.8C33.2 22 30.6 24.6 27.4 24.6" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <path d="M20 18V34M20 34L15 29M20 34L25 29" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <span class="logo-text">NimbusVault</span>
+    </div>
+
+    <!-- Auth Card -->
+    <div class="auth-card" id="authCard">
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="loginTab" onclick="switchTab('login')">Sign In</button>
+        <button class="auth-tab" id="signupTab" onclick="switchTab('signup')">Sign Up</button>
+      </div>
+
+      <!-- Toast -->
+      <div class="toast" id="toast"></div>
+
+      <!-- Login Form -->
+      <form id="loginForm" class="auth-form active">
+        <h2 class="form-title">Welcome back</h2>
+        <p class="form-subtitle">Sign in to access your vault</p>
+        <div class="input-group">
+          <label>Email</label>
+          <input type="email" id="loginEmail" placeholder="you@example.com" required />
+        </div>
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" id="loginPassword" placeholder="••••••••" required />
+        </div>
+        <button type="submit" class="btn-primary" id="loginBtn">
+          <span class="btn-text">Sign In</span>
+          <span class="btn-spinner hidden"></span>
+        </button>
+        <p class="auth-switch">No account? <a href="#" onclick="switchTab('signup')">Create one</a></p>
+      </form>
+
+      <!-- Signup Form -->
+      <form id="signupForm" class="auth-form">
+        <h2 class="form-title">Create account</h2>
+        <p class="form-subtitle">Start storing files in seconds</p>
+        <div class="input-group">
+          <label>Full Name</label>
+          <input type="text" id="signupName" placeholder="Jane Doe" required />
+        </div>
+        <div class="input-group">
+          <label>Email</label>
+          <input type="email" id="signupEmail" placeholder="you@example.com" required />
+        </div>
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" id="signupPassword" placeholder="Min 6 characters" required />
+        </div>
+        <button type="submit" class="btn-primary" id="signupBtn">
+          <span class="btn-text">Create Account</span>
+          <span class="btn-spinner hidden"></span>
+        </button>
+        <p class="auth-switch">Already have an account? <a href="#" onclick="switchTab('login')">Sign in</a></p>
+      </form>
+    </div>
+
+    <p class="auth-footer">Secure • Private • Fast</p>
+  </div>
+
+  <script type="module" src="firebase.js"></script>
+  <script type="module" src="pages/login.js"></script>
+</body>
+</html>
